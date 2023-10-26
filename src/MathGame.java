@@ -12,7 +12,7 @@ public class MathGame {
     private Scanner scanner;
 
     // create MathGame object
-    public MathGame(Player player1, Player player2, Scanner scanner) {
+    public MathGame(Player player1, Player player2, Player player3, Scanner scanner) {
         this.player1 = player1;
         this.player2 = player2;
         this.player3 = player3;
@@ -42,6 +42,7 @@ public class MathGame {
                 swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
             }
             else {
+                System.out.println("INCORRECT!");
                 swapPlayers();
                 printGameState();   // this helper method (shown below) prints the state of the Game
                 System.out.println("Current player: " + currentPlayer.getName());
@@ -144,16 +145,16 @@ public class MathGame {
         }
     }
 
-    // sets the winner when the game ends based on the player that missed the question
     private void determineWinner() {
         if (currentPlayer == player1) {
             winner = player2;
         }
-        else if(currentPlayer == player2){
-            winner = player1;
-        }
-        else{
+        else if( currentPlayer == player2){
             winner = player3;
         }
+        else{
+            winner = player1;
+        }
     }
+
 }
