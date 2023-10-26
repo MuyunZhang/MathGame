@@ -4,6 +4,7 @@ public class MathGameUI {
 
     private MathGame game;
     private Scanner scan;
+    private int streak;
 
     public MathGameUI() {
         game = null; // initialized in setup()
@@ -40,13 +41,20 @@ public class MathGameUI {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("GAME OVER!");
             if (game.getWinner() != null) {  // check for null just to be safe (so we don't call a method on null)
+                setStreak();
                 System.out.println("The winner was " + game.getWinner().getName());   // print winner's name
-                System.out.println("with a score of " + game.getWinner().getScore()); // print winner's score
+                System.out.println("with a score of " + game.getWinner().getScore());// print winner's score
+                System.out.println(game.getWinner().getName() + " has won " + streak + "  games in a row!");
             }
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.print("Want to play another round? y/n: ");
             playAgain = scan.nextLine().toLowerCase(); // take input and covert to lowercase
         }
         System.out.println("Thanks for playing the Math Game! Goodbye!");
+    }
+
+
+    public void setStreak(){
+        streak++;
     }
 }

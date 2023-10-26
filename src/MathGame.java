@@ -33,32 +33,37 @@ public class MathGame {
     public void playRound() {
         chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer to either player1 or player2
         while (!gameOver) {
-            printGameState();   // this helper method (shown below) prints the state of the Game
-            System.out.println("Current player: " + currentPlayer.getName());
-            boolean correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
-            if (correct) {
-                System.out.println("Correct!");
-                currentPlayer.incrementScore();  // this increments the currentPlayer's score
-                swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
-            }
-            else {
-                System.out.println("INCORRECT!");
-                swapPlayers();
+            int count = 0;
+            while(!(count == 2)){
                 printGameState();   // this helper method (shown below) prints the state of the Game
                 System.out.println("Current player: " + currentPlayer.getName());
-                correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
+                boolean correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
                 if (correct) {
                     System.out.println("Correct!");
                     currentPlayer.incrementScore();  // this increments the currentPlayer's score
-                    swapPlayers();
+                    swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
                 }
-                else{
-                System.out.println("INCORRECT!");
-                gameOver = true;
-                determineWinner();
+                else {
+                    System.out.println("INCORRECT!");
+                    swapPlayers();
+                    printGameState();   // this helper method (shown below) prints the state of the Game
+                    System.out.println("Current player: " + currentPlayer.getName());
+                    correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
+                    if (correct) {
+                        System.out.println("Correct!");
+                        currentPlayer.incrementScore();  // this increments the currentPlayer's score
+                        swapPlayers();
+                    }
+                    else{
+                        System.out.println("INCORRECT!");
+                        count ++;
+                        swapPlayers();
+                    }
                 }
             }
         }
+        gameOver = true;
+        determineWinner();
     }
 
     // prints the current scores of the two players
