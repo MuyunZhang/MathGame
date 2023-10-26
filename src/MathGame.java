@@ -32,37 +32,32 @@ public class MathGame {
     // plays a round of the math game
     public void playRound() {
         chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer to either player1 or player2
-        while (!gameOver) {
-            int count = 0;
-            while(!(count == 2)){
+        int count = 0;
+        while (count < 2) {
+            printGameState();   // this helper method (shown below) prints the state of the Game
+            System.out.println("Current player: " + currentPlayer.getName());
+            boolean correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
+            if (correct) {
+                System.out.println("Correct!");
+                currentPlayer.incrementScore();  // this increments the currentPlayer's score
+                swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
+            } else {
+                System.out.println("INCORRECT!");
+                swapPlayers();
                 printGameState();   // this helper method (shown below) prints the state of the Game
                 System.out.println("Current player: " + currentPlayer.getName());
-                boolean correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
+                correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
                 if (correct) {
                     System.out.println("Correct!");
                     currentPlayer.incrementScore();  // this increments the currentPlayer's score
-                    swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
-                }
-                else {
-                    System.out.println("INCORRECT!");
                     swapPlayers();
-                    printGameState();   // this helper method (shown below) prints the state of the Game
-                    System.out.println("Current player: " + currentPlayer.getName());
-                    correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
-                    if (correct) {
-                        System.out.println("Correct!");
-                        currentPlayer.incrementScore();  // this increments the currentPlayer's score
-                        swapPlayers();
-                    }
-                    else{
-                        System.out.println("INCORRECT!");
-                        count ++;
-                        swapPlayers();
-                    }
+                } else {
+                    System.out.println("INCORRECT!");
+                    count++;
+                    swapPlayers();
                 }
             }
         }
-        gameOver = true;
         determineWinner();
     }
 
@@ -104,7 +99,7 @@ public class MathGame {
 
     // asks a math question and returns true if the player answered correctly, false if not
     private boolean askQuestion() {
-        int operation = (int) (Math.random() * 4) + 1;
+        int operation = (int) (Math.random() * 5) + 1;
         int num1 = (int) (Math.random() * 100) + 1;
         int num2;
         int correctAnswer;
@@ -121,10 +116,15 @@ public class MathGame {
             num2 = (int) (Math.random() * 10) + 1;
             System.out.print(num1 + " * " + num2 + " = ");
             correctAnswer = num1 * num2;
-        } else {  // option == 4
+        } else if(operation == 4) {  // option == 4
             num2 = (int) (Math.random() * 10) + 1;
             System.out.print(num1 + " / " + num2 + " = ");
             correctAnswer = num1 / num2;
+        }
+        else{
+            num2 = (int) (Math.random() * 10) + 1;
+            System.out.print(num1 + " % " + num2 + " = ");
+            correctAnswer = num1 % num2;
         }
 
         int playerAnswer = scanner.nextInt(); // get player's answer using Scanner
